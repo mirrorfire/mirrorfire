@@ -5,3 +5,41 @@ int GetFileSize(std::string fileName)
     int size = statbuf.st_size;
     return size;
 }
+
+int getFileLength(const char *file_path) {
+    FILE *FILE;
+    int u32FileLen;
+    int s32Ret;
+
+    FILE = fopen(file_path, "rb");
+
+    if (NULL != FILE)
+    {
+        s32Ret = fseek(FILE, 0L, SEEK_END);
+        if (0 != s32Ret)
+        {
+            printf("fseek err!\n");
+            fclose(FILE);
+            return 0;
+        }
+
+        u32FileLen = ftell(FILE);
+
+        s32Ret = fseek(FILE, 0L, SEEK_SET);
+        if (0 != s32Ret)
+        {
+            printf("fseek err!\n");
+            fclose(FILE);
+            return 0;
+        }
+
+        fclose(FILE);
+    }
+    else
+    {
+        printf("open file %s fail!\n", file_path);
+        u32FileLen = 0;
+    }
+
+    return u32FileLen;
+};
