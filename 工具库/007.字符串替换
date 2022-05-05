@@ -1,0 +1,19 @@
+void FileStringReplace(std::ifstream &instream,
+                                   std::ofstream &outstream,
+                                   std::string strFind, std::string strChange)
+{
+    string str;
+    size_t pos = 0;
+    while (getline(instream, str))
+    {
+        pos = str.find(strFind);
+        if (pos == 0)
+        {
+            outstream << strChange << endl;
+        }
+        else
+        {
+            outstream << str << endl;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+std::string ExecShell(const std::string &cmd)
+{
+    lock_guard<mutex> lc(mu_cmd_);
+    string result = "";
+    FILE *pipe = popen(cmd.c_str(), "r");
+    if (!pipe)
+    {
+        return result;
+    }
+
+    char buffer[1024];
+    while (!feof(pipe))
+    {
+        if (fgets(buffer, 1024, pipe) != nullptr)
+            result += buffer;
+    }
+
+    pclose(pipe);
+    return result;
+}

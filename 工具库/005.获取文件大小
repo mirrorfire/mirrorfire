@@ -1,0 +1,7 @@
+int GetFileSize(std::string fileName)
+{
+    struct stat statbuf;
+    stat(fileName.c_str(), &statbuf);
+    int size = statbuf.st_size;
+    return size;
+}

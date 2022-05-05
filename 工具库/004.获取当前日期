@@ -1,0 +1,9 @@
+std::string GetDateNow()
+{
+    time_t tt = time(NULL);
+    tm *t = localtime(&tt);
+    char chtime[32];
+    sprintf(chtime, "%04d_%02d_%02d", t->tm_year + 1900, t->tm_mon + 1,
+            t->tm_mday);
+    return chtime;
+}
